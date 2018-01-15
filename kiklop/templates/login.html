@@ -1,0 +1,13 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %} Login Page {% endblock %}
+
+{% block content %}
+<form class="form form-horizontal" method="POST" role="form">
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, hiddens="only") }}
+  
+    {{ wtf.form_field(form.field1) }}
+    {{ wtf.form_field(form.field2) }}
+  </form>
+{% endblock %}
