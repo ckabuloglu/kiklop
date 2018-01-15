@@ -2,12 +2,12 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_debugtoolbar import DebugToolbarExtension
 
-app = Flask(__name__)
-
-app.debug = True
-app.config['SECRET_KEY'] = 'cancan65'
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object('config')
+app.config.from_pyfile('config.py')
 
 toolbar = DebugToolbarExtension(app)
 Bootstrap(app)
 
+# For circular dependencies
 import kiklop.views
