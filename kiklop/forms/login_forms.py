@@ -1,7 +1,10 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Email
 
-class LoginForm(Form):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+class LoginForm(FlaskForm):
+    email = StringField('email', validators=[DataRequired(), Email()])
+    password = PasswordField('password', validators=[DataRequired()])
+
+class ForgotForm(FlaskForm):
+    email = StringField('email', validators=[DataRequired(), Email()])

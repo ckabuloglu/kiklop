@@ -1,15 +1,23 @@
-from flask import Blueprint, render_template
-# from kiklop import app
+from flask import Blueprint, render_template, redirect, request, url_for
+from ..forms.login_forms import ForgotForm, LoginForm
 
 login = Blueprint('login', __name__)
 
-@login.route('/')
+@login.route('/', methods=["GET", "POST"])
 def index():
-    print 'LOGIN PAGE'
-    return render_template('login/index.html')
+    form = LoginForm()
+    if form.validate_on_submit():
+        print "POST"
+        email = form.email
+        password = form.password
+        return redirect(url_for('login.index'))
+    print "rendering main page"
+    return render_template('login/index.html', form=form)
 
-@login.route('/forgot')
+@login.route('/forgot', methods=["GET", "POST"])
 def forgot():
-    print 'FORGOT PASSWORD'
-    return render_template('login/forgot.html')
-     
+    form = ForgotForm()
+    if form.validate_on_submit():
+        email = form.email
+    print 'rendering forgot page'
+    return render_template('login/forgot.html', form=form)
